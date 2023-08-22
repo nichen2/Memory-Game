@@ -1,7 +1,17 @@
+h1{
+  text-align: center;
+}
+#game {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 5px; /* Adjust this value to control the spacing between grid items */
+  margin: 0 auto;
+  max-width: 240px;
+}
+
 #game div {
   border: 1px solid black;
-  width: 15%;
-  height: 200px;
-  margin: 10px;
-  display: inline-block;
+  height: 50px; /* This makes the height 25% of the parent container's height */
+  width: 50px;  /* This makes the width 25% of the parent container's width */
+  /* Remove or adjust the margin if needed */
 }
