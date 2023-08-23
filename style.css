@@ -15,3 +15,26 @@ h1{
   width: 50px;  /* This makes the width 25% of the parent container's width */
   /* Remove or adjust the margin if needed */
 }
+
+#button div{  
+  text-align: center;  
+  border: 7px solid red;  
+  width: 300px;  
+  height: 200px;  
+  padding-top: 100px;  
+}  
+
+/* To center the button horizontally */
+#resetButton {
+  display: block;
+  margin: 0 auto;
+  /* add other styling properties like padding, background-color, etc. as required */
+}
+
+/* To also center the button vertically, you can wrap it in a container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh; /* adjust as needed */
+}

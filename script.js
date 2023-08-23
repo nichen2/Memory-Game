@@ -1,4 +1,5 @@
 const gameContainer = document.getElementById("game");
+const button = document.querySelector('button');
 
 const COLORS = [
   "red",
@@ -70,35 +71,40 @@ let locked = false; // to prevent clicking when two cards are already flipped
 let matchedPairs = 0;
 
 function handleCardClick(event) {
-  // you can use event.target to see which element was clicked
   if (locked) return;
-  console.log("you just clicked", event.target);
-  const card = event.target
+  const card = event.target;
+  
+  // If this card is already flipped, don't process further
+  if (card === firstCard || card.style.backgroundColor) return;
   card.style.backgroundColor = card.classList.value;
   if (!firstCard) {
     firstCard = card;
     return;
   }
-  if (!secondCard) {
+  // If it's not the first card and also not the same card clicked again
+  if (!secondCard && card !== firstCard) {
     secondCard = card;
+    locked = true;  // Lock before the check
+    if (firstCard.classList.value === secondCard.classList.value) {
+      matchedPairs++;
+      firstCard = null;
+      secondCard = null;
+      locked = false;  // Unlock immediately if cards match
+    } else {
+      setTimeout(() => {
+        if (firstCard) firstCard.style.backgroundColor = '';
+        if (secondCard) secondCard.style.backgroundColor = '';
+        firstCard = null;
+        secondCard = null;
+        locked = false;
+      }, 1000);
+    }
   }
-  if (firstCard.classList.value === secondCard.classList.value) {
-    matchedPairs += 1;
-    firstCard = null;
-    secondCard = null;
-    return;
-  }
-  locked = true;
-  setTimeout(function() {
-    firstCard.style.backgroundColor = '';
-    secondCard.style.backgroundColor = '';
-    firstCard = null;
-    secondCard = null;
-    locked = false;
-  }, 1000);
-
 }
 
 // when the DOM loads
 createDivsForColors(shuffledColors);
+button.addEventListener("click",function() {
+  window.location.reload();
+});
 
