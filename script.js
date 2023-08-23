@@ -6,17 +6,17 @@ const COLORS = [
   "green",
   "orange",
   "purple",
+  "aqua",
+  "yellow",
+  "pink",
   "red",
   "blue",
   "green",
   "orange",
   "purple",
-  "red",
-  "blue",
-  "green",
-  "orange",
-  "purple",
-  "red",
+  "aqua",
+  "yellow",
+  "pink"
 ];
 
 // here is a helper function to shuffle an array
@@ -64,10 +64,41 @@ function createDivsForColors(colorArray) {
 }
 
 // TODO: Implement this function!
+let firstCard = null;
+let secondCard = null;
+let locked = false; // to prevent clicking when two cards are already flipped
+let matchedPairs = 0;
+
 function handleCardClick(event) {
   // you can use event.target to see which element was clicked
+  if (locked) return;
   console.log("you just clicked", event.target);
+  const card = event.target
+  card.style.backgroundColor = card.classList.value;
+  if (!firstCard) {
+    firstCard = card;
+    return;
+  }
+  if (!secondCard) {
+    secondCard = card;
+  }
+  if (firstCard.classList.value === secondCard.classList.value) {
+    matchedPairs += 1;
+    firstCard = null;
+    secondCard = null;
+    return;
+  }
+  locked = true;
+  setTimeout(function() {
+    firstCard.style.backgroundColor = '';
+    secondCard.style.backgroundColor = '';
+    firstCard = null;
+    secondCard = null;
+    locked = false;
+  }, 1000);
+
 }
 
 // when the DOM loads
 createDivsForColors(shuffledColors);
+
